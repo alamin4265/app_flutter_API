@@ -15,7 +15,8 @@ class APIPage extends StatefulWidget {
 class _APIPage extends State<APIPage> {
   List<Photo> list = List();
   var isLoading = false;
-  final _total = TextEditingController();
+  TextEditingController _total = TextEditingController();
+
   _fetchData() async {
     setState(() {
       isLoading = true;
@@ -51,26 +52,33 @@ class _APIPage extends State<APIPage> {
                   builder: (BuildContext context) {
                     return Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: SimpleDialog(                      
+                      child: SimpleDialog(
                         children: <Widget>[
                           Center(
-                            child:
-                                Text('Write how many data do you want to fetch',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0)),
+                            child: Text(
+                                'Write how many data do you want to fetch',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.0)),
                           ),
                           SizedBox(height: 100),
-                          TextFormField(                          
+                          TextField(
                             autofocus: true,
-                            decoration: InputDecoration(hintText: '100',contentPadding: EdgeInsets.all(10.0) ),
-                            controller: _total,
+                            keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.go,
+                            decoration: InputDecoration(                                
+                                hintText: '100',
+                                contentPadding: EdgeInsets.all(10.0),
+                                ),
+                            controller: _total,                            
+                            
                           ),
                           FlatButton(
                               child: Text('Get Data'),
                               onPressed: () {
                                 Navigator.pop(context);
-                                _fetchData();                                         
-                              }                              
-                          )
+                                _fetchData();
+                              })
                         ],
                       ),
                     );
@@ -87,14 +95,28 @@ class _APIPage extends State<APIPage> {
                 itemBuilder: (BuildContext context, int index) {
                   return ListTile(
                     contentPadding: EdgeInsets.all(10.0),
-                    title: new Text(list[index].title),
+                    title: new Text(list[index].id.toString()),
+                    subtitle: new Text(list[index].title),
                     trailing: new Image.network(
                       list[index].thumbnailUrl,
                       fit: BoxFit.cover,
                       height: 40.0,
                       width: 40.0,
                     ),
+                    
                   );
+                  //   Column(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   children: <Widget>[
+                  //     new Text(list[index].title),
+                  //     new Image.network(
+                  //       list[index].thumbnailUrl,
+                  //       fit: BoxFit.cover,
+                  //       height: 40.0,
+                  //       width: 40.0,
+                  //     )
+                  //   ],
+                  // );
                 }));
   }
 }
