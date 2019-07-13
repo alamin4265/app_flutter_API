@@ -1,13 +1,15 @@
 import 'package:StudentInformation/View/API_Data.dart';
 import 'package:flutter/material.dart';
 import 'package:StudentInformation/View/Student_Card.dart';
+import 'package:StudentInformation/DB/Database.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   final routes = {
     'StudentCardPage': (context) => StudentCard(),
-    'ApiPage': (context) => APIPage()
+    'ApiPage': (context) => APIPage(),
+    'SQLData': (context) => ClientData()
   };
   @override
   Widget build(BuildContext context) {
@@ -47,8 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.of(context).pushNamed(StudentCard.tag)),
               RaisedButton(
                   child: Text('Fetch Api Data'),
-                  onPressed: () =>
-                      Navigator.of(context).pushNamed('ApiPage'))
+                  onPressed: () => Navigator.of(context).pushNamed('ApiPage')),
+              RaisedButton(
+                  child: Text('SQLite Database Data'),
+                  onPressed: () => Navigator.of(context).pushNamed('SQLData'))
             ]),
       ),
     );
